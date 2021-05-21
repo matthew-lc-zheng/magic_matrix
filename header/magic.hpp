@@ -1,28 +1,23 @@
-#include <iomanip>
-#include <iostream>
-#include <memory>
-#include <utility>
-#include <vector>
-using namespace std;
+#include <bits/stdc++.h>
 
 class magic_matrix {
-  vector<vector<int>> table;
+  std::vector<std::vector<int>> table;
   int level, start;
 
 public:
   magic_matrix(int level, int start) : level(level), start(start) {
     if (level < 3) {
-      cerr << "Pease set a value greater than 2 for level\n";
+      std::cerr << "Pease set a value greater than 2 for level\n";
     }
     if (start < 1) {
-      cerr << "Please set positive value for start.\n";
+      std::cerr << "Please set positive value for start.\n";
     }
 
-    table = vector(level, vector(level, 0));
+    table = std::vector(level, std::vector(level, 0));
 
     if (level & 1) {
       int number = start;
-      int x = level - 1, y = level / 2;
+      int x = level - 1, y = level >> 1;
       while (number < (start + level * level)) {
         table[x][y] = number++;
         if (x == level - 1 && y == level - 1 ||
@@ -45,31 +40,31 @@ public:
       //        for (auto j = 0; j < table[0].size(); ++j)
       //          table[i][j] = i * level + j + start;
 
-      //      for (auto i = 0; i < level / 2; ++i) {
+      //      for (auto i = 0; i < level >> 1; ++i) {
       //        swap(table[i][i], table[level - i - 1][level - i - 1]);
       //        swap(table[level - 1 - i][i], table[i][level - i - 1]);
       //      }
 
       //        to do: level 4*k
       //        to do: level 4*k+2
-      cerr << "Even level is not supported temporarily.\n";
+      std::cerr << "Even level is not supported temporarily.\n";
     }
   }
   magic_matrix(int level) : magic_matrix(level, 1) {}
   magic_matrix() : magic_matrix(3, 1) {}
 
   void display() const {
-    auto digit = to_string(level * level).length();
-    cout << "The magic matrix in level " << level << " , starting from "
+    auto digit = std::to_string(level * level).length();
+    std::cout << "The magic matrix in level " << level << " , starting from "
          << start << " is:\n";
-    for (auto i : table) {
-      for (auto j : i)
-        cout << setw(digit) << j << " ";
-      cout << endl;
+    for (const auto& i : table) {
+      for (const auto& j : i)
+        std::cout << std::setw(digit) << j << " ";
+      std::cout << std::endl;
     }
   }
   bool varify() const {
-    int valid_sum = (2 * start + level * level - 1) * level / 2;
+    int valid_sum = (2 * start + level * level - 1) * level >> 1;
     int s_row = 0, s_col = 0, s_slash = 0, s_bslash = 0;
     for (auto i = 0; i < level; ++i) {
       for (auto j = 0; j < level; ++j) {
