@@ -20,7 +20,7 @@ public:
 
     table = vector(level, vector(level, 0));
 
-    if (level % 2) {
+    if (level & 1) {
       int number = start;
       int x = level - 1, y = level / 2;
       while (number < (start + level * level)) {
